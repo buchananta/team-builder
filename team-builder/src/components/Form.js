@@ -1,10 +1,43 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 
-
+const initialFormData = {
+  'username': '',
+  'email': '',
+  'role': '',
+}
 
 export default function Form(props) {
-  const {email, username, role, submit, update} = props;
+  const { editMember, 
+          teamMembers,
+          uuid,
+          setTeamMembers,
+          member} = props;
 
+  const [formData, setFormData] = useState(initialFormData)
+
+  const subToggle = (event) => {
+    event.preventDefault()
+    if (member.id === undefined) submit(event)
+    editMember(formData, member.id)
+    setFormData(initialFormData)
+  }
+  const submit = (event) => {
+    event.preventDefault()
+    setTeamMembers([{...formData, id: uuid() }, ...teamMembers]);
+    setFormData(initialFormData);
+  }
+  const update = (event) => {
+    const prop = event.target.name;
+    const value = event.target.value;
+    setFormData({...formData, [prop] : value})
+  }
+
+
+  let {email, username, role } = formData;
+  
+  useEffect(() => {
+    setFormData(member); 
+  }, [member]);
 
   return (
     <form onSubmit={submit}>
@@ -34,7 +67,8 @@ export default function Form(props) {
         <option value='student' >Student</option>
       </select>
       </label>
-      <button onClick={submit} >Add Member</button>
+      <button onClick={subToggle} >
+        {!member.id ? 'Add' : 'Edit'} Member</button>
     </form>
   )
 }

@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import Form from './components/Form';
 const initialTeamMembers = [{
@@ -13,12 +12,6 @@ const initialTeamMembers = [{
   'email': 'torvalds@osdl.org',
   'role': 'benevolent dictator'
 }]
-const initialFormData = {
-  'username': '',
-  'email': '',
-  'role': '',
-}
-
 const uuid = function() {
   let id = 3;
   return () => id = id + 1;
@@ -26,19 +19,16 @@ const uuid = function() {
 
 function App() {
   const [teamMembers, setTeamMembers] = useState(initialTeamMembers);
-  const [formData, setFormData] = useState(initialFormData)
+  const [member, setMember] = useState({}); //memberToEdit
 
-  const updateForm = (event) => {
-    const prop = event.target.name;
-    const value = event.target.value;
-    setFormData({...formData, [prop] : value})
-  }
-  
-  const submitMember = (event) => {
-    event.preventDefault()
-    setTeamMembers([{...formData, id: uuid() }, ...teamMembers]);
-    setFormData(initialFormData);
-  }
+  const editMember = (editedMember, id) => {
+    editedMember = {id, ...editedMember};
+    const filtered = teamMembers.filter( member => {
+      return member.id !== id
+    })
+    setTeamMembers([editedMember, ...filtered]);
+    setMember({});
+  }  
 
 
   return (
@@ -47,16 +37,17 @@ function App() {
         <h1>Team Members</h1>
       </header>
       <Form
-        email={formData.email}
-        username={formData.username}
-        role={formData.role}
-        update={updateForm}
-        submit={submitMember} />
+        editMember={editMember}
+        teamMembers={teamMembers}
+        setTeamMembers={setTeamMembers}
+        member={member}
+        uuid={uuid}
+      />
       <section className='teamMembers'>
         {teamMembers.map(person => {
           return (
             <div key={person.id} className='member-container'>
-              <button>[edit]</button>
+              <button onClick={() => setMember(person)}>[edit]</button>
               <p>UserName: {person.username}</p>
               <p>E-mail: {person.email}</p>
               <p>Role: {person.role}</p>
