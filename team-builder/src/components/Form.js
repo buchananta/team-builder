@@ -15,6 +15,7 @@ export default function Form(props) {
 
   const [formData, setFormData] = useState(initialFormData)
 
+
   const subToggle = (event) => {
     event.preventDefault()
     if (member.id === undefined) submit(event)
@@ -31,14 +32,12 @@ export default function Form(props) {
     const value = event.target.value;
     setFormData({...formData, [prop] : value})
   }
-
-
-  let {email, username, role } = formData;
   
   useEffect(() => {
     setFormData(member); 
   }, [member]);
 
+  let {email, username, role } = formData;
   return (
     <form onSubmit={submit}>
       <label>Name:
