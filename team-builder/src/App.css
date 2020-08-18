@@ -36,3 +36,34 @@
     transform: rotate(360deg);
   }
 }
+
+form {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  margin: 2em;
+  border: red solid 4px;
+}
+form input, button {
+  margin: 1em;
+}
+
+.teamMembers {
+  display: flex;
+  flex-flow: wrap;
+  margin: 2em;
+  justify-content: space-around;
+}
+
+.member-container {
+  color: white;
+  background-color: #282c34;
+  border: solid white 4px;
+  outline: solid red 4px;
+  margin: 2em;
+  padding: 1em 2em;
+  font-size: 1.3em;
+  text-align: left;
+  font-weight: 600;
+  letter-spacing: .08em;
+}
