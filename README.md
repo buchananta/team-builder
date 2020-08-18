@@ -27,9 +27,9 @@ In this project you'll build an app that will keep track of memebers of a team. 
 
 #### Setup your state
 
-- [ ] Import the `useState` hook and set up state to keep your team members list.
-- [ ] Give the state variable you just declared a default value. You will need to keep track of a list of team members and each team member will have several key/value pairs associated with them.
-- [ ] Render your list of team members.
+- [x] Import the `useState` hook and set up state to keep your team members list.
+- [x] Give the state variable you just declared a default value. You will need to keep track of a list of team members and each team member will have several key/value pairs associated with them.
+- [x] Render your list of team members.
 
 #### Build your form
 

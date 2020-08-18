@@ -19,12 +19,16 @@ const initialFormData = {
   'role': '',
 }
 
+const uuid = function() {
+  let id = 3;
+  return () => id = id + 1;
+}();
+
 function App() {
   const [teamMembers, setTeamMembers] = useState(initialTeamMembers);
   const [formData, setFormData] = useState(initialFormData)
 
   const updateForm = (event) => {
-    debugger;
     const prop = event.target.name;
     const value = event.target.value;
     setFormData({...formData, [prop] : value})
@@ -32,7 +36,7 @@ function App() {
   
   const submitMember = (event) => {
     event.preventDefault()
-    setTeamMembers([formData, ...teamMembers]);
+    setTeamMembers([{...formData, id: uuid() }, ...teamMembers]);
     setFormData(initialFormData);
   }
 
@@ -51,7 +55,8 @@ function App() {
       <section className='teamMembers'>
         {teamMembers.map(person => {
           return (
-            <div className='member-container'>
+            <div key={person.id} className='member-container'>
+              <button>[edit]</button>
               <p>UserName: {person.username}</p>
               <p>E-mail: {person.email}</p>
               <p>Role: {person.role}</p>

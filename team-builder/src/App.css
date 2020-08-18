@@ -42,7 +42,7 @@ form {
   flex-flow: column;
   align-items: center;
   margin: 2em;
-  border: red solid 4px;
+  border: darkred solid 4px;
 }
 form input, button {
   margin: 1em;
@@ -59,11 +59,22 @@ form input, button {
   color: white;
   background-color: #282c34;
   border: solid white 4px;
-  outline: solid red 4px;
+  outline: solid darkred 4px;
   margin: 2em;
   padding: 1em 2em;
   font-size: 1.3em;
   text-align: left;
   font-weight: 600;
   letter-spacing: .08em;
+  display: flex;
+  flex-flow: column;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.member-container button {
+  margin: 0;
+  padding: 0;
+  text-align: right;
+  align-self: flex-end;
 }
