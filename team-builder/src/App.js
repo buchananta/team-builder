@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './App.css';
 import Form from './components/Form';
+//setup a couple inital members
 const initialTeamMembers = [{
   'id': 1,
   'username': 'Trevor',
@@ -12,15 +13,20 @@ const initialTeamMembers = [{
   'email': 'torvalds@osdl.org',
   'role': 'benevolent dictator'
 }]
+//write function that will return an ever-increasing integer
 const uuid = function() {
   let id = 3;
   return () => id = id + 1;
 }();
-
+//core APP
 function App() {
   const [teamMembers, setTeamMembers] = useState(initialTeamMembers);
-  const [member, setMember] = useState({}); //memberToEdit
+  //memberToEdit
+  const [member, setMember] = useState({}); 
 
+  //take form data for an already-existing member
+  //and it's ID (form doesn't have that)
+  //and put the new data back into the array
   const editMember = (editedMember, id) => {
     editedMember = {id, ...editedMember};
     const filtered = teamMembers.filter( member => {

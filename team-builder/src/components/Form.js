@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 
+//basic design and reset for the Form
 const initialFormData = {
   'username': '',
   'email': '',
@@ -7,6 +8,7 @@ const initialFormData = {
 }
 
 export default function Form(props) {
+  //Taking to manh props, should refactor this.
   const { editMember, 
           teamMembers,
           uuid,
@@ -15,28 +17,34 @@ export default function Form(props) {
 
   const [formData, setFormData] = useState(initialFormData)
 
-
+  //decide if the submitted form data is to
+  //edit an already existing member, or create a new one
+  //and send it to the appropriate function
   const subToggle = (event) => {
     event.preventDefault()
     if (member.id === undefined) submit(event)
-    editMember(formData, member.id)
-    setFormData(initialFormData)
+    else {editMember(formData, member.id)
+    setFormData(initialFormData) }
   }
+  //add formdata to array of teamMembers
   const submit = (event) => {
     event.preventDefault()
     setTeamMembers([{...formData, id: uuid() }, ...teamMembers]);
     setFormData(initialFormData);
   }
+  //keep formdata updated
   const update = (event) => {
     const prop = event.target.name;
     const value = event.target.value;
     setFormData({...formData, [prop] : value})
   }
-  
+ //if member exists [edit] button pressed
+ //get that member data and assign it to the form 
   useEffect(() => {
     setFormData(member); 
   }, [member]);
-
+  
+  //simplify variable names for the component
   let {email, username, role } = formData;
   return (
     <form onSubmit={submit}>
